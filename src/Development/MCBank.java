@@ -86,13 +86,13 @@ public class MCBank implements BankActions,Login{
         {
             this.accounts.add(newAccount);
             this.accountMap.put(user, newAccount);
-            this.accDetailMap.put(user, password);
+            this.getAccDetailMap().put(user, password);
         }
         else if(!(this.accounts.contains(newAccount)) && !(this.accDetailMap.containsKey(user)))
         {
             this.accounts.add(newAccount);
             this.accountMap.put(user, newAccount);
-            this.accDetailMap.put(user, password);
+            this.getAccDetailMap().put(user, password);
         }
     }
     
@@ -114,7 +114,7 @@ public class MCBank implements BankActions,Login{
     @Override
     public boolean loginCorrect(String user, String password)
     {
-        return this.accDetailMap.containsKey(user) && this.accDetailMap.get(user).equals(password);
+        return this.getAccDetailMap().containsKey(user) && this.getAccDetailMap().get(user).equals(password);
     }
     
     //Returns the list of accounts
@@ -168,7 +168,7 @@ public class MCBank implements BankActions,Login{
                     {
                         bw.write("Username: "+key.getKey());
                         bw.newLine();
-                        bw.write("Password: "+this.accDetailMap.get(key.getKey()));
+                        bw.write("Password: "+this.getAccDetailMap().get(key.getKey()));
                         bw.newLine();
                     }
                 }
@@ -194,7 +194,7 @@ public class MCBank implements BankActions,Login{
                     if(key.getValue() == s)
                     {
                         bw.write(key.getKey()+"\n");
-                        bw.write(this.accDetailMap.get(key.getKey())+"\n");
+                        bw.write(this.getAccDetailMap().get(key.getKey())+"\n");
                     }
                 }
                 bw.write(s.getCustomer().getFirstName()+"\n");
@@ -271,5 +271,12 @@ public class MCBank implements BankActions,Login{
         {
             System.err.println("Error Found: "+e.getMessage());
         }
+    }
+
+    /**
+     * @return the accDetailMap
+     */
+    public HashMap<String, String> getAccDetailMap() {
+        return accDetailMap;
     }
 }

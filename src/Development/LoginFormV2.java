@@ -5,11 +5,7 @@
 package Development;
 
 import Development.MCBank;
-import Development.MCBank;
 import java.awt.Color;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import sun.security.util.Password;
 
 /**
  *
@@ -210,8 +206,17 @@ public class LoginFormV2 extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.out.println("LOGIN CLICKED");
         
+        if(bank.loginCorrect(userField.getText(), passField.getText())) {
+            this.promptLabel.setForeground(Color.GREEN);
+            this.promptLabel.setText("Login Successful!");
+        }
+        else {
+            this.promptLabel.setForeground(Color.RED);
+            this.promptLabel.setText("Incorrect User/Password!");
+        }
 
-        if(passField.getText().equals("test") && userField.getText().equalsIgnoreCase("test")) {
+        //This is for testing purposes!
+        /*if(passField.getText().equals("test") && userField.getText().equalsIgnoreCase("test")) {
             this.promptLabel.setForeground(Color.GREEN);
             this.promptLabel.setText("Login Successful!");
         }
@@ -222,13 +227,17 @@ public class LoginFormV2 extends javax.swing.JFrame {
         else {
             this.promptLabel.setForeground(Color.RED);
             this.promptLabel.setText("Incorrect User/Password!");
-        }
+        }*/
         
     }//GEN-LAST:event_loginButtonMouseClicked
 
     private void registerButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerButtonMouseClicked
         // TODO add your handling code here:
         System.out.println("SIGN UP CLICKED");
+        RegistrationForm regForm = new RegistrationForm(bank);
+        regForm.setVisible(true);
+        regForm.setLocationRelativeTo(null);
+        
     }//GEN-LAST:event_registerButtonMouseClicked
 
     private void userFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userFieldMouseClicked
