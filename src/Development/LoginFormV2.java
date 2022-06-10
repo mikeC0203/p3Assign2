@@ -211,9 +211,13 @@ public class LoginFormV2 extends javax.swing.JFrame {
         System.out.println("LOGIN CLICKED");
         
 
-        if(passField.getText().equals("test") && userField.getText().equalsIgnoreCase("testUser")) {
+        if(passField.getText().equals("test") && userField.getText().equalsIgnoreCase("test")) {
             this.promptLabel.setForeground(Color.GREEN);
             this.promptLabel.setText("Login Successful!");
+        }
+        else {
+            this.promptLabel.setForeground(Color.RED);
+            this.promptLabel.setText("Incorrect User/Password!");
         }
         
     }//GEN-LAST:event_loginButtonMouseClicked
