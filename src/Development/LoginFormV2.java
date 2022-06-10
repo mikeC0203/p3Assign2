@@ -6,6 +6,7 @@ package Development;
 
 import Development.MCBank;
 import java.awt.Color;
+import javax.swing.JFrame;
 
 /**
  *
@@ -14,6 +15,8 @@ import java.awt.Color;
 public class LoginFormV2 extends javax.swing.JFrame {
 
     private MCBank bank;
+    int xDrag, yDrag;
+    int xPress, yPress;
     /**
      * Creates new form LoginFormV2
      * @param bank
@@ -53,6 +56,14 @@ public class LoginFormV2 extends javax.swing.JFrame {
         setTitle("Login");
         setUndecorated(true);
         setResizable(false);
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                formMouseDragged(evt);
+            }
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                formMouseMoved(evt);
+            }
+        });
 
         iconPanel.setBackground(java.awt.Color.darkGray);
         iconPanel.setPreferredSize(new java.awt.Dimension(325, 350));
@@ -209,6 +220,13 @@ public class LoginFormV2 extends javax.swing.JFrame {
         if(bank.loginCorrect(userField.getText(), passField.getText())) {
             this.promptLabel.setForeground(Color.GREEN);
             this.promptLabel.setText("Login Successful!");
+            
+            MainPageForm mainPage = new MainPageForm(bank);
+            mainPage.setVisible(true);
+            mainPage.setLocationRelativeTo(null);
+            
+            this.dispose();
+            
         }
         else {
             this.promptLabel.setForeground(Color.RED);
@@ -216,7 +234,7 @@ public class LoginFormV2 extends javax.swing.JFrame {
         }
 
         //This is for testing purposes!
-        /*if(passField.getText().equals("test") && userField.getText().equalsIgnoreCase("test")) {
+        /*if(passField.getText().equals("MainPageForm") && userField.getText().equalsIgnoreCase("MainPageForm")) {
             this.promptLabel.setForeground(Color.GREEN);
             this.promptLabel.setText("Login Successful!");
         }
@@ -249,6 +267,20 @@ public class LoginFormV2 extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.passField.setText("");
     }//GEN-LAST:event_passFieldMouseClicked
+
+    private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
+        // TODO add your handling code here:
+        xPress = evt.getX();
+        yPress = evt.getY();
+    }//GEN-LAST:event_formMouseMoved
+
+    private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
+        // TODO add your handling code here:
+        xDrag = evt.getX();
+        yDrag = evt.getY();
+        
+        this.setLocation(this.getLocation().x+xDrag-xPress,this.getLocation().y+yDrag-yPress);
+    }//GEN-LAST:event_formMouseDragged
 
     /**
      * @param args the command line arguments

@@ -11,8 +11,9 @@ import java.awt.Color;
  * @author micha
  */
 public class RegistrationForm extends javax.swing.JFrame {
-
-    private static MCBank bank;
+    int xDrag, yDrag, xPress, yPress;
+    
+    private MCBank bank;
     /**
      * Creates new form RegistrationForm
      */
@@ -32,7 +33,6 @@ public class RegistrationForm extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         regPanel = new javax.swing.JPanel();
-        iconLabel = new javax.swing.JLabel();
         windowLabel = new javax.swing.JLabel();
         pwConfLabel = new javax.swing.JLabel();
         firstNameLabel = new javax.swing.JLabel();
@@ -46,79 +46,86 @@ public class RegistrationForm extends javax.swing.JFrame {
         pwRegField = new javax.swing.JPasswordField();
         jPanel1 = new javax.swing.JPanel();
         createAccountButton = new javax.swing.JLabel();
-        bankLabel = new javax.swing.JLabel();
         regPromptLabel = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        bankLabel = new javax.swing.JLabel();
+        iconLabel = new javax.swing.JLabel();
+        exitLabel = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
 
         jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("Registration"); // NOI18N
+        setUndecorated(true);
         setSize(new java.awt.Dimension(580, 365));
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                formMouseDragged(evt);
+            }
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                formMouseMoved(evt);
+            }
+        });
 
         regPanel.setBackground(new java.awt.Color(51, 51, 51));
         regPanel.setPreferredSize(new java.awt.Dimension(530, 368));
         regPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        iconLabel.setBackground(new java.awt.Color(51, 51, 51));
-        iconLabel.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        iconLabel.setForeground(new java.awt.Color(204, 204, 204));
-        iconLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Development/Icons/bankIcon.png"))); // NOI18N
-        regPanel.add(iconLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 0, 90, -1));
-
         windowLabel.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
         windowLabel.setForeground(new java.awt.Color(204, 204, 204));
         windowLabel.setText("  REGISTRATION");
-        regPanel.add(windowLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 240, 50));
+        regPanel.add(windowLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, 240, 50));
 
         pwConfLabel.setBackground(new java.awt.Color(204, 204, 204));
         pwConfLabel.setForeground(new java.awt.Color(204, 204, 204));
         pwConfLabel.setText("Confirm Password:");
-        regPanel.add(pwConfLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, -1, -1));
+        regPanel.add(pwConfLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 240, -1, -1));
 
         firstNameLabel.setBackground(new java.awt.Color(204, 204, 204));
         firstNameLabel.setForeground(new java.awt.Color(204, 204, 204));
         firstNameLabel.setText("Firstname:");
-        regPanel.add(firstNameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, -1));
+        regPanel.add(firstNameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, -1, -1));
 
         lastNameLabel.setBackground(new java.awt.Color(204, 204, 204));
         lastNameLabel.setForeground(new java.awt.Color(204, 204, 204));
         lastNameLabel.setText("Lastname:");
-        regPanel.add(lastNameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, -1, -1));
+        regPanel.add(lastNameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, -1, -1));
 
         userRegLabel.setBackground(new java.awt.Color(204, 204, 204));
         userRegLabel.setForeground(new java.awt.Color(204, 204, 204));
         userRegLabel.setText("Username:");
-        regPanel.add(userRegLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, -1, -1));
+        regPanel.add(userRegLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, -1, -1));
 
         pwRegLabel.setBackground(new java.awt.Color(204, 204, 204));
         pwRegLabel.setForeground(new java.awt.Color(204, 204, 204));
         pwRegLabel.setText("Password:");
-        regPanel.add(pwRegLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, -1, -1));
+        regPanel.add(pwRegLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, -1, -1));
 
         firstNameField.setBackground(new java.awt.Color(51, 51, 51));
         firstNameField.setForeground(new java.awt.Color(204, 204, 204));
         firstNameField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        regPanel.add(firstNameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 220, -1));
+        regPanel.add(firstNameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 220, -1));
 
         lastNameField.setBackground(new java.awt.Color(51, 51, 51));
         lastNameField.setForeground(new java.awt.Color(204, 204, 204));
         lastNameField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        regPanel.add(lastNameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 130, 220, -1));
+        regPanel.add(lastNameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 120, 220, -1));
 
         userRegField.setBackground(new java.awt.Color(51, 51, 51));
         userRegField.setForeground(new java.awt.Color(204, 204, 204));
         userRegField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        regPanel.add(userRegField, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 220, -1));
+        regPanel.add(userRegField, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 160, 220, -1));
 
         pwConfField.setBackground(new java.awt.Color(51, 51, 51));
         pwConfField.setForeground(new java.awt.Color(204, 204, 204));
         pwConfField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        regPanel.add(pwConfField, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 250, 220, -1));
+        regPanel.add(pwConfField, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 240, 220, -1));
 
         pwRegField.setBackground(new java.awt.Color(51, 51, 51));
         pwRegField.setForeground(new java.awt.Color(204, 204, 204));
         pwRegField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        regPanel.add(pwRegField, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, 220, -1));
+        regPanel.add(pwRegField, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 200, 220, -1));
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
@@ -147,19 +154,62 @@ public class RegistrationForm extends javax.swing.JFrame {
                 .addComponent(createAccountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        regPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 320, 140, 20));
-
-        bankLabel.setBackground(java.awt.Color.darkGray);
-        bankLabel.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        bankLabel.setForeground(new java.awt.Color(255, 255, 255));
-        bankLabel.setText("MC BANK");
-        regPanel.add(bankLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 90, 90, 30));
+        regPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 340, 140, 20));
 
         regPromptLabel.setBackground(new java.awt.Color(51, 51, 51));
         regPromptLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         regPromptLabel.setForeground(new java.awt.Color(204, 204, 204));
         regPromptLabel.setText(" ");
-        regPanel.add(regPromptLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 200, -1));
+        regPanel.add(regPromptLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 290, 200, -1));
+
+        jPanel2.setBackground(java.awt.Color.darkGray);
+
+        bankLabel.setBackground(java.awt.Color.darkGray);
+        bankLabel.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        bankLabel.setForeground(new java.awt.Color(255, 255, 255));
+        bankLabel.setText("MC BANK");
+
+        iconLabel.setBackground(new java.awt.Color(51, 51, 51));
+        iconLabel.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        iconLabel.setForeground(new java.awt.Color(204, 204, 204));
+        iconLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Development/Icons/bankIcon.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bankLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(iconLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(iconLabel)
+                .addGap(0, 0, 0)
+                .addComponent(bankLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(239, Short.MAX_VALUE))
+        );
+
+        regPanel.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 140, 370));
+
+        exitLabel.setBackground(new java.awt.Color(51, 51, 51));
+        exitLabel.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        exitLabel.setForeground(new java.awt.Color(204, 204, 204));
+        exitLabel.setText("X");
+        exitLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                exitLabelMouseClicked(evt);
+            }
+        });
+        regPanel.add(exitLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 0, 20, 30));
+
+        jSeparator1.setForeground(new java.awt.Color(204, 204, 204));
+        regPanel.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 310, 200, 10));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -177,7 +227,12 @@ public class RegistrationForm extends javax.swing.JFrame {
 
     private void createAccountButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createAccountButtonMouseClicked
         // TODO add your handling code here:
-        if(!pwRegField.getText().equals(pwConfField.getText())) {
+        if(firstNameField.getText().isEmpty() || lastNameField.getText().isEmpty() ||
+                pwRegField.getText().isEmpty() || pwConfField.getText().isEmpty()) {
+            this.regPromptLabel.setForeground(Color.WHITE);
+            this.regPromptLabel.setText("Please fill all fields.");
+        }
+        else if(!pwRegField.getText().equals(pwConfField.getText())) {
             this.regPromptLabel.setForeground(Color.RED);
             this.regPromptLabel.setText("Password Mismatch!");            
         }
@@ -189,8 +244,29 @@ public class RegistrationForm extends javax.swing.JFrame {
             this.regPromptLabel.setForeground(Color.GREEN);
             this.regPromptLabel.setText("Account Created!"); 
             bank.createAccount(userRegField.getText(), pwRegField.getText(), firstNameField.getText(), lastNameField.getText());
+            this.dispose();
         }
     }//GEN-LAST:event_createAccountButtonMouseClicked
+
+    private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
+        // TODO add your handling code here:
+        xPress = evt.getX();
+        yPress = evt.getY();
+    }//GEN-LAST:event_formMouseMoved
+
+    private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
+        // TODO add your handling code here:
+        xDrag = evt.getX();
+        yDrag = evt.getY();
+        
+        this.setLocation(this.getLocation().x+xDrag-xPress,this.getLocation().y+yDrag-yPress);
+    }//GEN-LAST:event_formMouseDragged
+
+    private void exitLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitLabelMouseClicked
+        // TODO add your handling code here:
+        System.out.println("Closing Window...");
+        this.dispose();
+    }//GEN-LAST:event_exitLabelMouseClicked
 
     /**
      * @param args the command line arguments
@@ -230,11 +306,14 @@ public class RegistrationForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bankLabel;
     private javax.swing.JLabel createAccountButton;
+    private javax.swing.JLabel exitLabel;
     private javax.swing.JTextField firstNameField;
     private javax.swing.JLabel firstNameLabel;
     private javax.swing.JLabel iconLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField lastNameField;
     private javax.swing.JLabel lastNameLabel;
     private javax.swing.JPasswordField pwConfField;
