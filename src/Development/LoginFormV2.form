@@ -64,7 +64,7 @@
               <Color blue="cc" green="cc" red="cc" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Development/bankIcon.png"/>
+              <Image iconType="3" name="/Development/Icons/bankIcon.png"/>
             </Property>
           </Properties>
           <Constraints>
@@ -188,7 +188,7 @@
               <Color blue="cc" green="cc" red="cc" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Development/lockIcon.png"/>
+              <Image iconType="3" name="/Development/Icons/lockIcon.png"/>
             </Property>
           </Properties>
           <Constraints>
@@ -206,7 +206,7 @@
               <Color blue="cc" green="cc" red="cc" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Development/userIcon.png"/>
+              <Image iconType="3" name="/Development/Icons/userIcon.png"/>
             </Property>
           </Properties>
           <Constraints>

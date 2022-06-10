@@ -64,7 +64,7 @@ public class LoginFormV2 extends javax.swing.JFrame {
 
         jLabel1.setBackground(java.awt.Color.darkGray);
         jLabel1.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Development/bankIcon.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Development/Icons/bankIcon.png"))); // NOI18N
         iconPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 90, 100));
 
         jLabel2.setBackground(java.awt.Color.darkGray);
@@ -108,12 +108,12 @@ public class LoginFormV2 extends javax.swing.JFrame {
 
         pwIcon.setBackground(new java.awt.Color(204, 204, 204));
         pwIcon.setForeground(new java.awt.Color(204, 204, 204));
-        pwIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Development/lockIcon.png"))); // NOI18N
+        pwIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Development/Icons/lockIcon.png"))); // NOI18N
         controlPanel.add(pwIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, 30));
 
         unIcon.setBackground(new java.awt.Color(204, 204, 204));
         unIcon.setForeground(new java.awt.Color(204, 204, 204));
-        unIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Development/userIcon.png"))); // NOI18N
+        unIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Development/Icons/userIcon.png"))); // NOI18N
         controlPanel.add(unIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, 30));
 
         exitLabel.setBackground(new java.awt.Color(51, 51, 51));
@@ -214,6 +214,10 @@ public class LoginFormV2 extends javax.swing.JFrame {
         if(passField.getText().equals("test") && userField.getText().equalsIgnoreCase("test")) {
             this.promptLabel.setForeground(Color.GREEN);
             this.promptLabel.setText("Login Successful!");
+        }
+        else if(userField.getText().equals("Username") && passField.getText().equals("Password")) {
+            this.promptLabel.setForeground(new Color(255, 255, 255));
+            this.promptLabel.setText("Enter Username & Password!");
         }
         else {
             this.promptLabel.setForeground(Color.RED);
