@@ -4,6 +4,11 @@
  */
 package Development;
 
+import java.awt.Color;
+import java.text.NumberFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author micha
@@ -12,12 +17,35 @@ public class MainPageForm extends javax.swing.JFrame {
 
     int xDrag, yDrag, xPress, yPress;
     private MCBank bank;
+    private Transactions latestTrans;
     /**
      * Creates new form mainPageForm
+     * @param bank
      */
     public MainPageForm(MCBank bank) {
-        initComponents();
         this.bank = bank;
+        initComponents();
+
+    }
+    
+    public class Transactions {
+        String name, transactionType;
+        double amount;
+        
+        public Transactions(String name, String transactionType, double amount) {
+            this.name = name;
+            this.transactionType = transactionType;
+            this.amount = amount;
+        }
+        
+        @Override
+        public String toString() {
+            NumberFormat format = NumberFormat.getCurrencyInstance();
+            
+            return "Name: "+this.name+"\n "
+                    + "Type: "+this.transactionType+"\n "
+                    + "Amount: "+format.format(this.amount);
+        }
     }
 
     /**
@@ -29,14 +57,45 @@ public class MainPageForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        navPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        jSeparator3 = new javax.swing.JSeparator();
+        goLabel = new javax.swing.JLabel();
+        savLabel = new javax.swing.JLabel();
+        logoutLabel = new javax.swing.JLabel();
+        jSeparator4 = new javax.swing.JSeparator();
+        mainPanel = new javax.swing.JPanel();
         exitLabel = new javax.swing.JLabel();
+        balancePanel = new javax.swing.JPanel();
+        balanceLabel = new javax.swing.JLabel();
+        currentAccBalanceLabel = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        homePane = new javax.swing.JPanel();
+        defaultPane = new javax.swing.JPanel();
+        fromBox = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        transactionLabel = new javax.swing.JLabel();
+        withdrawButton = new javax.swing.JButton();
+        transButton = new javax.swing.JButton();
+        depositButton = new javax.swing.JButton();
+        sendButton = new javax.swing.JButton();
+        jSeparator5 = new javax.swing.JSeparator();
+        amountField = new javax.swing.JFormattedTextField();
+        jLabel12 = new javax.swing.JLabel();
+        mainPromptLabel = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        toBox = new javax.swing.JComboBox<>();
+        peerLastName = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        peerFirstName = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        sendAmount = new javax.swing.JFormattedTextField();
+        jLabel17 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 51, 51));
@@ -52,34 +111,71 @@ public class MainPageForm extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(java.awt.Color.darkGray);
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        navPanel.setBackground(java.awt.Color.darkGray);
+        navPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setBackground(java.awt.Color.darkGray);
         jLabel1.setForeground(new java.awt.Color(204, 204, 204));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Development/Icons/bankIcon.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 90, 90));
+        navPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 90, 90));
 
         jLabel2.setBackground(java.awt.Color.darkGray);
         jLabel2.setFont(new java.awt.Font("Comic Sans MS", 1, 20)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("MC BANK");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 100, 30));
+        navPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 100, 30));
 
         jSeparator1.setForeground(new java.awt.Color(204, 204, 204));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 190, 10));
+        navPanel.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 190, 10));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Development/Icons/userIcon.png"))); // NOI18N
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, -1, 40));
+        navPanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, -1, 40));
 
         jLabel4.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        jLabel4.setText("TEST NAME");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 110, 20));
+        jLabel4.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel4.setText(bank.getCurrentAccount().getCustomer().getFirstName()+" "+bank.getCurrentAccount().getCustomer().getLastName());
+        navPanel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 120, 20));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 500));
+        jSeparator3.setForeground(new java.awt.Color(204, 204, 204));
+        navPanel.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 120, 10));
 
-        jPanel2.setBackground(new java.awt.Color(51, 51, 51));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        goLabel.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        goLabel.setForeground(new java.awt.Color(204, 204, 204));
+        goLabel.setText("Go Account");
+        goLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                goLabelMouseClicked(evt);
+            }
+        });
+        navPanel.add(goLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 120, 30));
+
+        savLabel.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        savLabel.setForeground(new java.awt.Color(204, 204, 204));
+        savLabel.setText("Savings Account");
+        savLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                savLabelMouseClicked(evt);
+            }
+        });
+        navPanel.add(savLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 120, 30));
+
+        logoutLabel.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        logoutLabel.setForeground(new java.awt.Color(204, 204, 204));
+        logoutLabel.setText(" SIGN OUT");
+        logoutLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logoutLabelMouseClicked(evt);
+            }
+        });
+        navPanel.add(logoutLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, 60, 20));
+
+        jSeparator4.setForeground(new java.awt.Color(204, 204, 204));
+        navPanel.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 480, 60, 10));
+
+        getContentPane().add(navPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 500));
+
+        mainPanel.setBackground(new java.awt.Color(51, 51, 51));
+        mainPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         exitLabel.setBackground(new java.awt.Color(51, 51, 51));
         exitLabel.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
@@ -90,9 +186,171 @@ public class MainPageForm extends javax.swing.JFrame {
                 exitLabelMouseClicked(evt);
             }
         });
-        jPanel2.add(exitLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 0, 20, 30));
+        mainPanel.add(exitLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 0, 20, 30));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 660, 500));
+        balancePanel.setBackground(new java.awt.Color(51, 51, 51));
+        balancePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        balanceLabel.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        balanceLabel.setForeground(new java.awt.Color(204, 204, 204));
+        balanceLabel.setText("Balance:");
+        balancePanel.add(balanceLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 120, 50));
+
+        currentAccBalanceLabel.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        currentAccBalanceLabel.setForeground(new java.awt.Color(204, 204, 204));
+        currentAccBalanceLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        currentAccBalanceLabel.setText(""+bank.getCurrentAccount().getSavBalance().toString());
+        balancePanel.add(currentAccBalanceLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 170, 50));
+
+        jSeparator2.setForeground(new java.awt.Color(204, 204, 204));
+        balancePanel.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 270, 20));
+
+        mainPanel.add(balancePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 250, 50));
+
+        homePane.setBackground(java.awt.Color.darkGray);
+        homePane.setForeground(java.awt.Color.darkGray);
+        homePane.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        defaultPane.setBackground(java.awt.Color.darkGray);
+        defaultPane.setForeground(java.awt.Color.darkGray);
+        defaultPane.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        fromBox.setBackground(new java.awt.Color(102, 102, 102));
+        fromBox.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        fromBox.setForeground(new java.awt.Color(204, 204, 204));
+        fromBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Go", "Savings" }));
+        defaultPane.add(fromBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
+
+        jLabel10.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel10.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel10.setText("Amount:");
+        defaultPane.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 100, -1));
+
+        transactionLabel.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        transactionLabel.setText(" ");
+        defaultPane.add(transactionLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 600, 80));
+
+        withdrawButton.setBackground(new java.awt.Color(102, 102, 102));
+        withdrawButton.setFont(new java.awt.Font("SansSerif", 1, 10)); // NOI18N
+        withdrawButton.setForeground(new java.awt.Color(204, 204, 204));
+        withdrawButton.setText("Withdraw");
+        withdrawButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        withdrawButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                withdrawButtonMouseClicked(evt);
+            }
+        });
+        defaultPane.add(withdrawButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 90, -1));
+
+        transButton.setBackground(new java.awt.Color(102, 102, 102));
+        transButton.setFont(new java.awt.Font("SansSerif", 1, 10)); // NOI18N
+        transButton.setForeground(new java.awt.Color(204, 204, 204));
+        transButton.setText("Transfer");
+        transButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        transButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                transButtonMouseClicked(evt);
+            }
+        });
+        defaultPane.add(transButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 90, -1));
+
+        depositButton.setBackground(new java.awt.Color(102, 102, 102));
+        depositButton.setFont(new java.awt.Font("SansSerif", 1, 10)); // NOI18N
+        depositButton.setForeground(new java.awt.Color(204, 204, 204));
+        depositButton.setText("Deposit");
+        depositButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        defaultPane.add(depositButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 90, -1));
+
+        sendButton.setBackground(new java.awt.Color(102, 102, 102));
+        sendButton.setFont(new java.awt.Font("SansSerif", 1, 10)); // NOI18N
+        sendButton.setForeground(new java.awt.Color(204, 204, 204));
+        sendButton.setText("Send");
+        sendButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        sendButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sendButtonMouseClicked(evt);
+            }
+        });
+        defaultPane.add(sendButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 230, -1, -1));
+
+        jSeparator5.setForeground(new java.awt.Color(204, 204, 204));
+        defaultPane.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 600, 10));
+
+        amountField.setBackground(new java.awt.Color(102, 102, 102));
+        amountField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        amountField.setForeground(new java.awt.Color(204, 204, 204));
+        amountField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        defaultPane.add(amountField, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 170, 20));
+
+        jLabel12.setBackground(new java.awt.Color(102, 102, 102));
+        jLabel12.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel12.setText("Last Transaction:");
+        defaultPane.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 6, 190, 30));
+
+        mainPromptLabel.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        mainPromptLabel.setForeground(new java.awt.Color(204, 204, 204));
+        mainPromptLabel.setText(" ");
+        defaultPane.add(mainPromptLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 460, 80));
+
+        jLabel13.setBackground(new java.awt.Color(102, 102, 102));
+        jLabel13.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel13.setText("Last Name:");
+        defaultPane.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 160, 80, -1));
+
+        toBox.setBackground(new java.awt.Color(102, 102, 102));
+        toBox.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        toBox.setForeground(new java.awt.Color(204, 204, 204));
+        toBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Go", "Savings" }));
+        defaultPane.add(toBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, -1, -1));
+
+        peerLastName.setBackground(new java.awt.Color(102, 102, 102));
+        peerLastName.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        peerLastName.setForeground(new java.awt.Color(204, 204, 204));
+        defaultPane.add(peerLastName, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 180, 110, 20));
+
+        jLabel14.setBackground(new java.awt.Color(102, 102, 102));
+        jLabel14.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel14.setText("Transfer To:");
+        defaultPane.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, 80, -1));
+
+        peerFirstName.setBackground(new java.awt.Color(102, 102, 102));
+        peerFirstName.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        peerFirstName.setForeground(new java.awt.Color(204, 204, 204));
+        defaultPane.add(peerFirstName, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 180, 110, 20));
+
+        jLabel15.setBackground(new java.awt.Color(102, 102, 102));
+        jLabel15.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel15.setText("First Name:");
+        defaultPane.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 160, 80, -1));
+
+        jLabel16.setBackground(new java.awt.Color(102, 102, 102));
+        jLabel16.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel16.setText("Amount:");
+        defaultPane.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 210, 100, -1));
+
+        sendAmount.setBackground(new java.awt.Color(102, 102, 102));
+        sendAmount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        sendAmount.setForeground(new java.awt.Color(204, 204, 204));
+        sendAmount.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat(""))));
+        defaultPane.add(sendAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, 160, 20));
+
+        jLabel17.setBackground(new java.awt.Color(102, 102, 102));
+        jLabel17.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel17.setText("From:");
+        defaultPane.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 80, -1));
+
+        homePane.add(defaultPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 360));
+
+        mainPanel.add(homePane, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 620, 360));
+
+        getContentPane().add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 660, 500));
 
         pack();
         setLocationRelativeTo(null);
@@ -117,6 +375,77 @@ public class MainPageForm extends javax.swing.JFrame {
         System.out.println("Closing Application...");
         System.exit(0);
     }//GEN-LAST:event_exitLabelMouseClicked
+
+    private void logoutLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutLabelMouseClicked
+        // TODO add your handling code here:
+        System.out.println("Logging out...");
+        bank.saveAccounts();
+        bank.rawAccountDetails();
+        bank.setCurrentAccount(null);
+        
+        
+        this.setVisible(false);
+        
+        LoginFormV2 loginForm = new LoginFormV2(bank);
+        
+        loginForm.setVisible(true);
+        loginForm.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_logoutLabelMouseClicked
+
+    private void goLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_goLabelMouseClicked
+        // TODO add your handling code here:
+        this.balanceLabel.setText("Go Account:");
+        this.currentAccBalanceLabel.setText(bank.getCurrentAccount().getGoBalance().toString());
+    }//GEN-LAST:event_goLabelMouseClicked
+
+    private void savLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_savLabelMouseClicked
+        // TODO add your handling code here:
+        this.balanceLabel.setText("Savings:");
+        this.currentAccBalanceLabel.setText(bank.getCurrentAccount().getSavBalance().toString());
+    }//GEN-LAST:event_savLabelMouseClicked
+
+    private void withdrawButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_withdrawButtonMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_withdrawButtonMouseClicked
+
+    private void transButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transButtonMouseClicked
+        // TODO add your handling code here:
+        if(((String)fromBox.getSelectedItem()).equalsIgnoreCase((String)toBox.getSelectedItem())) {
+            mainPromptLabel.setText("Why transfer to the same account?");
+        }
+        else {
+            bank.getCurrentAccount().moveFunds((String)fromBox.getSelectedItem(), 
+                    (String)toBox.getSelectedItem(), Double.parseDouble(amountField.getText()));
+            
+            mainPromptLabel.setForeground(Color.GREEN);
+            mainPromptLabel.setText("Transfer Successful!");
+            
+            amountField.setText("");
+        }
+
+    }//GEN-LAST:event_transButtonMouseClicked
+
+    private void sendButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sendButtonMouseClicked
+        // TODO add your handling code here:
+        if (bank.getAccount(peerFirstName.getText(), peerLastName.getText()) == null) {
+            mainPromptLabel.setText("Transfer Failed! Account non-existent.");
+        }
+        else {
+            bank.getCurrentAccount().transfer(bank.getAccount(peerFirstName.getText(), 
+                    peerLastName.getText()), (String)fromBox.getSelectedItem(), 
+                    Double.parseDouble(sendAmount.getText()));
+            
+            mainPromptLabel.setForeground(Color.GREEN);
+            mainPromptLabel.setText("Payment Successful!");
+            latestTrans = new Transactions("Myself", "Debit", Double.parseDouble(sendAmount.getText()));
+            
+            transactionLabel.setText(latestTrans.toString());
+            
+            amountField.setText("");
+        }
+    }//GEN-LAST:event_sendButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -154,13 +483,44 @@ public class MainPageForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JFormattedTextField amountField;
+    private javax.swing.JLabel balanceLabel;
+    private javax.swing.JPanel balancePanel;
+    private javax.swing.JLabel currentAccBalanceLabel;
+    private javax.swing.JPanel defaultPane;
+    private javax.swing.JButton depositButton;
     private javax.swing.JLabel exitLabel;
+    private javax.swing.JComboBox<String> fromBox;
+    private javax.swing.JLabel goLabel;
+    private javax.swing.JPanel homePane;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JLabel logoutLabel;
+    private javax.swing.JPanel mainPanel;
+    private javax.swing.JLabel mainPromptLabel;
+    private javax.swing.JPanel navPanel;
+    private javax.swing.JTextField peerFirstName;
+    private javax.swing.JTextField peerLastName;
+    private javax.swing.JLabel savLabel;
+    private javax.swing.JFormattedTextField sendAmount;
+    private javax.swing.JButton sendButton;
+    private javax.swing.JComboBox<String> toBox;
+    private javax.swing.JButton transButton;
+    private javax.swing.JLabel transactionLabel;
+    private javax.swing.JButton withdrawButton;
     // End of variables declaration//GEN-END:variables
 }
