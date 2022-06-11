@@ -4,9 +4,10 @@
  */
 package Development;
 
-import Development.MCBank;
 import java.awt.Color;
-import javax.swing.JFrame;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -15,15 +16,18 @@ import javax.swing.JFrame;
 public class LoginFormV2 extends javax.swing.JFrame {
 
     private MCBank bank;
+    
     int xDrag, yDrag;
     int xPress, yPress;
+
     /**
      * Creates new form LoginFormV2
      * @param bank
      */
     public LoginFormV2(MCBank bank) {
-        initComponents();
         this.bank = bank;
+        initComponents();
+
     }
 
     /**
@@ -51,6 +55,7 @@ public class LoginFormV2 extends javax.swing.JFrame {
         loginPanel = new javax.swing.JPanel();
         loginButton = new javax.swing.JLabel();
         promptLabel = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
@@ -188,6 +193,16 @@ public class LoginFormV2 extends javax.swing.JFrame {
         promptLabel.setText(" ");
         controlPanel.add(promptLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, 180, 30));
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel3.setText("Recreate Existing Accounts?");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
+        controlPanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, -1, 20));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -220,6 +235,8 @@ public class LoginFormV2 extends javax.swing.JFrame {
         if(bank.loginCorrect(userField.getText(), passField.getText())) {
             this.promptLabel.setForeground(Color.GREEN);
             this.promptLabel.setText("Login Successful!");
+            
+            bank.setCurrentAccount(bank.getAccount(userField.getText()));
             
             MainPageForm mainPage = new MainPageForm(bank);
             mainPage.setVisible(true);
@@ -282,6 +299,15 @@ public class LoginFormV2 extends javax.swing.JFrame {
         this.setLocation(this.getLocation().x+xDrag-xPress,this.getLocation().y+yDrag-yPress);
     }//GEN-LAST:event_formMouseDragged
 
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        try {
+            // TODO add your handling code here:
+            this.bank.recreateAccounts();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(LoginFormV2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jLabel3MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -323,6 +349,7 @@ public class LoginFormV2 extends javax.swing.JFrame {
     private javax.swing.JPanel iconPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel loginButton;

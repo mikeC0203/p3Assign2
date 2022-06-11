@@ -25,6 +25,8 @@ public class MCBank implements BankActions,Login{
     private ArrayList<BankAccount> accounts;
     private HashMap<String, BankAccount> accountMap;
     private HashMap<String, String> accDetailMap;
+    private BankAccount currentAccount;
+    public boolean loggedIn;
     
     MCBank()
     {
@@ -104,11 +106,14 @@ public class MCBank implements BankActions,Login{
         {
             if(this.accountMap.containsKey(user))
             {
+                this.loggedIn = true;
+                this.setCurrentAccount(this.accountMap.get(user));
                 return this.accountMap.get(user);
             }
         }
         return null;
     }
+    
     
     //Checks user and password if correct
     @Override
@@ -136,6 +141,11 @@ public class MCBank implements BankActions,Login{
         }
         
         return null;
+    }
+    
+    //Returns the account with the userName
+    public BankAccount getAccount(String userName) {
+        return this.accountMap.get(userName);
     }
     
     //Returns an ArrayList of Usernames taken to prevent users from having the
@@ -278,5 +288,19 @@ public class MCBank implements BankActions,Login{
      */
     public HashMap<String, String> getAccDetailMap() {
         return accDetailMap;
+    }
+
+    /**
+     * @return the currentAccount
+     */
+    public BankAccount getCurrentAccount() {
+        return currentAccount;
+    }
+
+    /**
+     * @param currentAccount the currentAccount to set
+     */
+    public void setCurrentAccount(BankAccount currentAccount) {
+        this.currentAccount = currentAccount;
     }
 }

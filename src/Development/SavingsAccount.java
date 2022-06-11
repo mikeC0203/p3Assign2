@@ -28,7 +28,8 @@ public class SavingsAccount {
     {
         NumberFormat format = NumberFormat.getCurrencyInstance();
         
-        return this.type+": "+format.format(this.balance);
+        //return this.type+": "+format.format(this.balance);
+        return format.format(this.balance);
     }
     
     /**

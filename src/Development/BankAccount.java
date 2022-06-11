@@ -9,7 +9,7 @@ package Development;
  *
  * @author michaelcalbay
  */
-public class BankAccount extends MCBank implements CustActions{
+public class BankAccount extends MCBank implements CustActions {
     
     private Person customer;
     private GoAccount goBalance;
@@ -43,11 +43,11 @@ public class BankAccount extends MCBank implements CustActions{
     {
         if(amount > 0)
         {
-            if(accType.equalsIgnoreCase("go"))
+            if(accType.equalsIgnoreCase("Go"))
             {
                 this.getGoBalance().setBalance(this.getGoBalance().getBalance()+amount);
             }
-            else if(accType.equalsIgnoreCase("savings"))
+            else if(accType.equalsIgnoreCase("Savings"))
             {
                 this.getSavBalance().setBalance(this.getSavBalance().getBalance()+amount);
             }
@@ -62,14 +62,14 @@ public class BankAccount extends MCBank implements CustActions{
     @Override
     public void withdraw(String accType, double amount)
     {
-        if(accType.equalsIgnoreCase("go"))
+        if(accType.equalsIgnoreCase("Go"))
         {
             if(amount <= this.getGoBalance().getBalance() && amount > 0)
             {
                 this.getGoBalance().setBalance(this.getGoBalance().getBalance()-amount);
             }
         }
-        else if(accType.equalsIgnoreCase("savings"))
+        else if(accType.equalsIgnoreCase("Savings"))
         {
             if(amount <= this.getSavBalance().getBalance() && amount > 0);
             {
@@ -95,7 +95,7 @@ public class BankAccount extends MCBank implements CustActions{
                     if(this.getGoBalance().getBalance() >= amount && amount > 0)
                     {
                         this.withdraw(accType, amount);
-                        e.deposit("go", amount);
+                        e.deposit("Go", amount);
                     }
 
                     break;
@@ -103,7 +103,7 @@ public class BankAccount extends MCBank implements CustActions{
                     if(this.getSavBalance().getBalance() >= amount && amount > 0)
                     {
                         this.withdraw(accType, amount);
-                        e.deposit("go", amount);
+                        e.deposit("Go", amount);
                     }    
                     
                     break;
@@ -161,6 +161,7 @@ public class BankAccount extends MCBank implements CustActions{
         return o != null && o instanceof BankAccount
                 && ((BankAccount) o).getCustomer().getFirstName().equalsIgnoreCase(this.getCustomer().getFirstName())
                 && ((BankAccount) o).getCustomer().getLastName().equalsIgnoreCase(this.getCustomer().getLastName());
+        
     }
        
     @Override

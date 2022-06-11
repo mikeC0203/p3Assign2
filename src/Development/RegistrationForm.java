@@ -18,8 +18,8 @@ public class RegistrationForm extends javax.swing.JFrame {
      * Creates new form RegistrationForm
      */
     public RegistrationForm(MCBank bank) {
-        initComponents();
         this.bank = bank;
+        initComponents();
     }
 
     /**

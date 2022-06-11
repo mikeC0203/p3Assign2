@@ -2,5 +2,11 @@ mike_test2
 titest
 Michael
 Calbay
-690.5
-1.35000055E7
+190.0
+1.34000055E7
+ruxieTest
+test
+Rhose
+Mondejar
+100500.5
+0.0

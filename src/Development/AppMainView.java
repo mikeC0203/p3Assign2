@@ -8,7 +8,7 @@ package Development;
  *
  * @author micha
  */
-public class LoginView {
+public class AppMainView {
     public static void main(String[] args) {
         MCBank bank = new MCBank();
         
