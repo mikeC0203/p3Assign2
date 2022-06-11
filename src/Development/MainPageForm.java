@@ -42,9 +42,8 @@ public class MainPageForm extends javax.swing.JFrame {
         public String toString() {
             NumberFormat format = NumberFormat.getCurrencyInstance();
             
-            return "Name: "+this.name+"\n "
-                    + "Type: "+this.transactionType+"\n "
-                    + "Amount: "+format.format(this.amount);
+            return "Done by "+this.name+", "
+                    +transactionType+", Amount of "+format.format(this.amount);
         }
     }
 
@@ -193,7 +192,7 @@ public class MainPageForm extends javax.swing.JFrame {
 
         balanceLabel.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         balanceLabel.setForeground(new java.awt.Color(204, 204, 204));
-        balanceLabel.setText("Balance:");
+        balanceLabel.setText("Savings:");
         balancePanel.add(balanceLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 120, 50));
 
         currentAccBalanceLabel.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
@@ -228,6 +227,7 @@ public class MainPageForm extends javax.swing.JFrame {
         defaultPane.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 100, -1));
 
         transactionLabel.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        transactionLabel.setForeground(new java.awt.Color(204, 204, 204));
         transactionLabel.setText(" ");
         defaultPane.add(transactionLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 600, 80));
 
@@ -260,6 +260,11 @@ public class MainPageForm extends javax.swing.JFrame {
         depositButton.setForeground(new java.awt.Color(204, 204, 204));
         depositButton.setText("Deposit");
         depositButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        depositButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                depositButtonMouseClicked(evt);
+            }
+        });
         defaultPane.add(depositButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 90, -1));
 
         sendButton.setBackground(new java.awt.Color(102, 102, 102));
@@ -337,7 +342,7 @@ public class MainPageForm extends javax.swing.JFrame {
         sendAmount.setBackground(new java.awt.Color(102, 102, 102));
         sendAmount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
         sendAmount.setForeground(new java.awt.Color(204, 204, 204));
-        sendAmount.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat(""))));
+        sendAmount.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         defaultPane.add(sendAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, 160, 20));
 
         jLabel17.setBackground(new java.awt.Color(102, 102, 102));
@@ -407,6 +412,15 @@ public class MainPageForm extends javax.swing.JFrame {
 
     private void withdrawButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_withdrawButtonMouseClicked
         // TODO add your handling code here:
+        bank.getCurrentAccount().withdraw((String)fromBox.getSelectedItem(), Double.parseDouble(amountField.getText()));
+        
+        mainPromptLabel.setForeground(Color.GREEN);
+        mainPromptLabel.setText("Withdrawal Successful!");
+        
+        latestTrans = new Transactions("Myself", "Withdrawal", Double.parseDouble(amountField.getText()));
+        transactionLabel.setText(latestTrans.toString());
+        
+        amountField.setText("");
 
     }//GEN-LAST:event_withdrawButtonMouseClicked
 
@@ -421,6 +435,10 @@ public class MainPageForm extends javax.swing.JFrame {
             
             mainPromptLabel.setForeground(Color.GREEN);
             mainPromptLabel.setText("Transfer Successful!");
+            
+            latestTrans = new Transactions("Myself", "Transfer Funds", Double.parseDouble(amountField.getText()));
+            
+            transactionLabel.setText(latestTrans.toString());
             
             amountField.setText("");
         }
@@ -443,9 +461,22 @@ public class MainPageForm extends javax.swing.JFrame {
             
             transactionLabel.setText(latestTrans.toString());
             
-            amountField.setText("");
+            sendAmount.setText("");
         }
     }//GEN-LAST:event_sendButtonMouseClicked
+
+    private void depositButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_depositButtonMouseClicked
+        // TODO add your handling code here:
+        bank.getCurrentAccount().deposit((String)fromBox.getSelectedItem(), Double.parseDouble(amountField.getText()));
+        
+        mainPromptLabel.setForeground(Color.GREEN);
+        mainPromptLabel.setText("Withdrawal Successful!");
+        
+        latestTrans = new Transactions("Myself", "Deposit", Double.parseDouble(amountField.getText()));
+        transactionLabel.setText(latestTrans.toString());
+        
+        amountField.setText("");
+    }//GEN-LAST:event_depositButtonMouseClicked
 
     /**
      * @param args the command line arguments

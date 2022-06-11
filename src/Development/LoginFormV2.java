@@ -4,6 +4,9 @@
  */
 package Development;
 
+import Development.MCBank;
+import Development.MainPageForm;
+import Development.RegistrationForm;
 import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.util.logging.Level;

@@ -3,14 +3,14 @@ Password: titest
 First Name: Michael
 Last Name: Calbay
 
-$190.00
-$13,400,005.50
+$690.00
+$13,500,005.50
 -----------------------------------------
 Username: ruxieTest
 Password: test
 First Name: Rhose
 Last Name: Mondejar
 
-$100,500.50
+$0.50
 $0.00
 -----------------------------------------
