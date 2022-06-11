@@ -6,7 +6,10 @@ package Development;
 
 /**
  *
- * @author micha
+ * 20888496 - CALBAY
+ * https://github.com/mikeC0203/p3Assign2 - GITHUB REPO
+ * 
+ * PLEASE RUN THIS TO USE THE APP
  */
 public class AppMainView {
     public static void main(String[] args) {

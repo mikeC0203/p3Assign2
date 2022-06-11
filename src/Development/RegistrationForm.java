@@ -7,8 +7,8 @@ package Development;
 import java.awt.Color;
 
 /**
- *
- * @author micha
+ * 20888496 - CALBAY
+ * https://github.com/mikeC0203/p3Assign2 - GITHUB REPO
  */
 public class RegistrationForm extends javax.swing.JFrame {
     int xDrag, yDrag, xPress, yPress;

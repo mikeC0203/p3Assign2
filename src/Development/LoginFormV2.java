@@ -14,7 +14,8 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author micha
+ * 20888496 - CALBAY
+ * https://github.com/mikeC0203/p3Assign2 - GITHUB REPO
  */
 public class LoginFormV2 extends javax.swing.JFrame {
 

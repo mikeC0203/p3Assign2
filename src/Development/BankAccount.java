@@ -7,7 +7,8 @@ package Development;
 
 /**
  *
- * @author michaelcalbay
+ * 20888496 - CALBAY
+ * https://github.com/mikeC0203/p3Assign2 - GITHUB REPO
  */
 public class BankAccount extends MCBank implements CustActions {
     
